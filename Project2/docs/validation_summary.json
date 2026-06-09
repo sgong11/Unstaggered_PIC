@@ -1,0 +1,110 @@
+{
+  "comparisons": [
+    {
+      "conserving": "weibel_bdf1_conserving",
+      "conserving_continuity_rms": 3.4731877620902826e-17,
+      "example": "weibel",
+      "gauge_ratio_conserving_over_naive": 4.3944765999861e-13,
+      "gauss_ratio_conserving_over_naive": 2.0201266998486208e-13,
+      "method": "bdf1",
+      "naive": "weibel_bdf1_naive"
+    },
+    {
+      "conserving": "weibel_bdf2_conserving",
+      "conserving_continuity_rms": 8.577606212773434e-17,
+      "example": "weibel",
+      "gauge_ratio_conserving_over_naive": 4.3061999761708646e-13,
+      "gauss_ratio_conserving_over_naive": 1.7481178181292403e-13,
+      "method": "bdf2",
+      "naive": "weibel_bdf2_naive"
+    },
+    {
+      "conserving": "cloud_bdf1_conserving",
+      "conserving_continuity_rms": 3.046054166240575e-17,
+      "example": "cloud",
+      "gauge_ratio_conserving_over_naive": 8.717540509736931e-13,
+      "gauss_ratio_conserving_over_naive": 8.259693343450392e-13,
+      "method": "bdf1",
+      "naive": "cloud_bdf1_naive"
+    },
+    {
+      "conserving": "cloud_bdf2_conserving",
+      "conserving_continuity_rms": 2.6118902988670753e-16,
+      "example": "cloud",
+      "gauge_ratio_conserving_over_naive": 5.0008071407861155e-12,
+      "gauss_ratio_conserving_over_naive": 7.1250410405018856e-12,
+      "method": "bdf2",
+      "naive": "cloud_bdf2_naive"
+    }
+  ],
+  "failures": [],
+  "passed": true,
+  "runs": {
+    "cloud_bdf1_conserving": {
+      "final_Bz_l2": 0.003045836135705978,
+      "final_total_energy": 0.016070267843241663,
+      "max_continuity_rms": 3.046054166240575e-17,
+      "max_gauge_rms": 4.5610173277059726e-15,
+      "max_gauss_rms": 1.7271733983393261e-15,
+      "max_speed": 0.04049240853906824
+    },
+    "cloud_bdf1_naive": {
+      "final_Bz_l2": 0.0032638492455565986,
+      "final_total_energy": 0.018416773664496337,
+      "max_continuity_rms": 0.014874571859263771,
+      "max_gauge_rms": 0.005232000152579286,
+      "max_gauss_rms": 0.0020910865894420956,
+      "max_speed": 0.04103183483764085
+    },
+    "cloud_bdf2_conserving": {
+      "final_Bz_l2": 0.012209252006033981,
+      "final_total_energy": 0.11877151449354541,
+      "max_continuity_rms": 2.6118902988670753e-16,
+      "max_gauge_rms": 1.159083656071363e-14,
+      "max_gauss_rms": 4.378236788710396e-14,
+      "max_speed": 0.06237676900934349
+    },
+    "cloud_bdf2_naive": {
+      "final_Bz_l2": 0.012462656368831494,
+      "final_total_energy": 0.12652791406068947,
+      "max_continuity_rms": 0.022080350917497753,
+      "max_gauge_rms": 0.0023177931550648796,
+      "max_gauss_rms": 0.006144858343724002,
+      "max_speed": 0.06473631442721367
+    },
+    "weibel_bdf1_conserving": {
+      "Bz_growth_from_first_nonzero": 255.19524115291398,
+      "final_Bz_l2": 0.003740814853023663,
+      "final_total_energy": 6.107989395975344,
+      "max_continuity_rms": 3.4731877620902826e-17,
+      "max_gauge_rms": 3.796146493517671e-15,
+      "max_gauss_rms": 2.272460289275073e-15,
+      "max_speed": 0.51439716315468
+    },
+    "weibel_bdf1_naive": {
+      "final_Bz_l2": 0.0036996667102948463,
+      "final_total_energy": 6.109074297792702,
+      "max_continuity_rms": 0.13464057708366522,
+      "max_gauge_rms": 0.008638449670046436,
+      "max_gauss_rms": 0.011249097838493798,
+      "max_speed": 0.5110150153540869
+    },
+    "weibel_bdf2_conserving": {
+      "Bz_growth_from_first_nonzero": 501.8214303793195,
+      "final_Bz_l2": 0.003740731538914569,
+      "final_total_energy": 6.108284337402765,
+      "max_continuity_rms": 8.577606212773434e-17,
+      "max_gauge_rms": 3.914316383517608e-15,
+      "max_gauss_rms": 5.778435122912831e-15,
+      "max_speed": 0.5143859056636596
+    },
+    "weibel_bdf2_naive": {
+      "final_Bz_l2": 0.0037048818824019294,
+      "final_total_energy": 6.109297540461874,
+      "max_continuity_rms": 0.1472346394501058,
+      "max_gauge_rms": 0.0090899549607036,
+      "max_gauss_rms": 0.03305518119537653,
+      "max_speed": 0.5112184145793451
+    }
+  }
+}
