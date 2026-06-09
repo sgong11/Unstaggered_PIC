@@ -1,0 +1,23 @@
+Serial teaching code: orbit-discrete-gradient Picard CN potential PIC
+test_case = landau_weak (serial, no MPI/OpenMP)
+grid = 32 x 1 x 1, dt = 0.1, steps = 300
+step    60/300 Gauss=6.594e-16 R_A=3.537e-18 dE=6.644e-17 crossings=278 Picard=5
+step   120/300 Gauss=1.079e-15 R_A=2.766e-18 dE=3.790e-16 crossings=200 Picard=5
+step   180/300 Gauss=1.956e-15 R_A=9.681e-18 dE=-4.311e-16 crossings=200 Picard=5
+step   240/300 Gauss=1.561e-15 R_A=2.215e-18 dE=-1.407e-16 crossings=194 Picard=5
+step   300/300 Gauss=3.182e-15 R_A=3.227e-17 dE=8.270e-16 crossings=222 Picard=5
+Final Gauss RMS = 3.182027e-15
+Final gauge RMS = 7.525137e-16
+Final total energy = 6.040348e+00
+Diagnostics prefix: landau_weak
+  max relative total-energy drift: 1.470409e-16
+  max Gauss RMS residual:          3.182027e-15
+  max Lorenz-gauge RMS residual:   7.912901e-16
+  max A-chain RMS residual:        3.466873e-17
+  max abs step total-energy error: 9.168556e-16
+  max particle-energy residual:    9.150040e-16
+  max field-energy residual:       1.799776e-17
+  final |E_k| / linear envelope:   2.933570e+01
+  min/max |E_k| / envelope:        2.661076e-03 / 2.284243e+02
+  fitted gamma from log |E_k|:     -2.724027e-01
+  fitted log-amplitude intercept:  -5.188885e+00
