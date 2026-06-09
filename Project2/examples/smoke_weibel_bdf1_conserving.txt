@@ -1,0 +1,29 @@
+# Fast end-to-end smoke test.
+# Uses the Weibel setup with the charge-conserving continuity update.
+
+example = weibel
+method = bdf1
+charge_update = conserving
+
+nx = 16
+ny = 16
+Lx = 6.283185307179586
+Ly = 6.283185307179586
+
+n_steps = 20
+dt = 0.05
+particles_per_cell = 4
+
+c = 1.0
+eps0 = 1.0
+mu0 = 1.0
+n0 = 1.0
+
+weibel_vx = 0.5
+weibel_vy_max = 0.01
+weibel_sine_perturb = 0.002
+perturbation_mode = 1
+
+seed = 12345
+run_unit_tests = true
+output_prefix = smoke_weibel_bdf1_conserving

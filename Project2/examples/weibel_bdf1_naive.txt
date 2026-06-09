@@ -1,0 +1,29 @@
+# Same Weibel run, but rho is redeposited directly from particles.
+# This is intentionally not the paper's conserving update; it is retained to
+# reproduce the left/right comparison logic of Figs. 2-3.
+
+example = weibel
+method = bdf1
+charge_update = naive
+
+nx = 32
+ny = 32
+Lx = 6.283185307179586
+Ly = 6.283185307179586
+
+n_steps = 160
+dt = 0.05
+particles_per_cell = 4
+
+c = 1.0
+eps0 = 1.0
+mu0 = 1.0
+n0 = 1.0
+
+weibel_vx = 0.5
+weibel_vy_max = 0.01
+weibel_sine_perturb = 0.002
+perturbation_mode = 1
+
+seed = 12345
+output_prefix = weibel_bdf1_naive
