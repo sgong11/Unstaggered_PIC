@@ -1,0 +1,11 @@
+Serial teaching code: orbit-discrete-gradient Picard CN potential PIC
+test_case = two_stream (serial, no MPI/OpenMP)
+grid = 16 x 16 x 16, dt = 0.025, steps = 1200
+step   240/1200 Gauss=2.304e-15 R_A=2.688e-19 dE=1.142e-16 crossings=1536 Picard=4
+step   480/1200 Gauss=6.039e-15 R_A=5.222e-19 dE=1.402e-15 crossings=2048 Picard=4
+step   720/1200 Gauss=1.174e-14 R_A=2.883e-18 dE=-4.441e-16 crossings=2560 Picard=4
+step   960/1200 Gauss=1.572e-14 R_A=1.163e-17 dE=-3.331e-16 crossings=1536 Picard=4
+step  1200/1200 Gauss=1.905e-14 R_A=1.867e-17 dE=-1.332e-15 crossings=1024 Picard=4
+Final Gauss RMS = 1.904633e-14
+Final gauge RMS = 3.822402e-15
+Final total energy = 1.118706e+01
