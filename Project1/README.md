@@ -1,6 +1,6 @@
 # Energy-Conserving Unstaggered Potential PIC - Serial Teaching Code
 
-This repository contains a **serial C++17 teaching implementation** of the energy-conserving unstaggered potential particle-in-cell method described in the accompanying paper draft.
+This repository contains a **serial C++17 teaching implementation** of the energy-conserving unstaggered potential particle-in-cell method described in the accompanying paper: An Energy-Conserving Unstaggered Electromagnetic-Potential Particle-in-Cell Method, Part I: Non-relativistic Generalized-Momentum Formulation (with the manuscript released on the arxiv within a few weeks).
 
 The code is serial on purpose. There is no MPI, no OpenMP, and no external FFT library. The goal is to make the algorithm readable for students and community users. A parallel implementation can be released later; this version is meant to teach the ideas and provide a compact reference implementation.
 
