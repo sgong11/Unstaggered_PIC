@@ -1,0 +1,60 @@
+# Table 1 TSI-0.3.
+# See README.md and docs/README.md for provenance and limits.
+test_case = cold_relativistic_two_stream
+nx = 32
+ny = 32
+nz = 32
+Lx = 25.132741228718345
+Ly = 25.132741228718345
+Lz = 25.132741228718345
+n_steps = 200
+dt = 0.3
+particles_per_cell_pair = 10
+spline_order = 2
+orbit_quad_order = 8
+split_orbit_at_knots = true
+
+kappa = 1.0
+sigma1 = 1.0
+sigma2 = 1.0
+rho0 = 1.0
+v0 = 0.9
+perturbation = 0.0
+two_stream_density_alpha = 0.005
+two_stream_eigenmode = true
+two_stream_finite_grid_theory = true
+perturbation_mode = 1
+
+nonlinear_solver = anderson_quasi_newton
+nonlinear_rtol = 1.0e-11
+nonlinear_atol = 1.0e-13
+nonlinear_max_iter = 80
+anderson_memory = 4
+anderson_start = 2
+anderson_damping = 0.5
+anderson_regularization = 1.0e-12
+anderson_growth_limit = 1.2
+
+uniform_particle_subcycling = false
+selective_particle_fallback = false
+selective_particle_max_substeps = 64
+selective_particle_dynamic_chunk = 4
+particle_local_rtol = 1.0e-11
+particle_local_atol = 1.0e-13
+particle_local_max_iter = 64
+particle_local_damping = 1.0
+
+adaptive_dt = false
+run_unit_tests = false
+output_prefix = tsi_main_dt03_T60
+
+particle_snapshot_times = 0, 30, 45, 55, 60
+
+nyquist_projection = true
+transverse_diagnostics = true
+transverse_spectrum_interval = 1.0
+
+selective_failure_diagnostics = true
+field_diagnostics = true
+field_diagnostics_interval = 10.0
+field_grid_snapshots = false
