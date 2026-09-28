@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+#SBATCH --job-name=pic_nyquist_sweep
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=16
+#SBATCH --mem=32G
+#SBATCH --time=24:00:00
+#SBATCH --output=pic_nyquist_sweep-%j.out
+
+# Submit from the repository directory. Load your GNU compiler module
+# before submission; supply your cluster's account/partition to sbatch as usual.
+# ---------------------------------------------------------------------------
+# Compile, run, and screen one simulation inside an isolated Slurm job directory
+# Inputs:
+#   $1 : input deck; $2 : safe run name; CXX : optional compiler command
+# Output:
+#   runs/<name>/<job_id>/ : inputs, source, hashes, logs, CSV, summary reports
+# Dependencies:
+#   Slurm (sbatch/srun), GNU C++17/OpenMP, Python >=3.9, summary scripts
+# ---------------------------------------------------------------------------
+set -euo pipefail
+cd "${SLURM_SUBMIT_DIR:?Submit this script using sbatch}"
+CODE_DIR="$PWD"
+INPUT="${1:-inputs/manuscript/tsi_main_dt01_T60.txt}"
+RUN_NAME="${2:-tsi_main_dt01_T60}"
+[[ "$RUN_NAME" =~ ^[a-zA-Z0-9_-]+$ ]] || { echo 'Invalid run name' >&2; exit 2; }
+[[ -f "$INPUT" && -f ec_pic_nyquist_projected.cpp && -f summarize_hpc_run.py && -f summarize_snapshots.py ]] || {
+    echo 'Submit from the package directory with the source, input and summary script present.' >&2; exit 2;
+}
+command -v python3 >/dev/null
+CXX_BIN="${CXX:-g++}"
+command -v "$CXX_BIN" >/dev/null
+RUN_DIR="${CODE_DIR}/runs/${RUN_NAME}/${SLURM_JOB_ID}"
+mkdir -p "${CODE_DIR}/runs/${RUN_NAME}"
+mkdir "$RUN_DIR"  # Refuse to overwrite an existing job's results.
+cp "$INPUT" "$RUN_DIR/input.txt"
+cp ec_pic_nyquist_projected.cpp summarize_hpc_run.py summarize_snapshots.py "$RUN_DIR/"
+cd "$RUN_DIR"
+export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-16}"
+export OMP_DYNAMIC=false
+export OMP_PROC_BIND=close
+export OMP_PLACES=cores
+export OPENBLAS_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+
+# Compile on the cluster, never use the locally built macOS binary.
+"$CXX_BIN" --version > compiler.txt
+"$CXX_BIN" -std=c++17 -O2 -fopenmp ec_pic_nyquist_projected.cpp -o ec_pic_nyquist_projected
+python3 - <<'PY'
+import hashlib,json,os
+from pathlib import Path
+files=['ec_pic_nyquist_projected.cpp','input.txt','summarize_hpc_run.py','summarize_snapshots.py']
+Path('source_sha256.txt').write_text(''.join(hashlib.sha256(Path(p).read_bytes()).hexdigest()+'  '+p+'\n' for p in files))
+Path('execution.json').write_text(json.dumps({k:os.environ.get(k) for k in ['SLURM_JOB_ID','SLURM_CPUS_PER_TASK','OMP_NUM_THREADS','OMP_DYNAMIC','OMP_PROC_BIND','OMP_PLACES']},indent=2)+'\n')
+PY
+PREFIX="$(awk -F= '/^[[:space:]]*output_prefix[[:space:]]*=/ {v=$2; sub(/#.*/,"",v); gsub(/[[:space:]]/,"",v); print v}' input.txt)"
+[[ "$PREFIX" =~ ^[a-zA-Z0-9_-]+$ ]] || { echo 'Expected one simple output_prefix in input.txt' >&2; exit 2; }
+echo "Run directory: $RUN_DIR"
+echo "Output prefix: $PREFIX; threads: $OMP_NUM_THREADS"
+set +e
+srun --ntasks=1 --cpus-per-task="$OMP_NUM_THREADS" --cpu-bind=cores \
+    ./ec_pic_nyquist_projected input.txt 2>&1 | tee simulation.log
+RUN_STATUS=${PIPESTATUS[0]}
+python3 summarize_hpc_run.py "$PREFIX" --solver-exit "$RUN_STATUS"
+SUMMARY_STATUS=$?
+if compgen -G "${PREFIX}_particles_t*.csv" >/dev/null; then
+    python3 summarize_snapshots.py "$PREFIX" > snapshot_transverse_rms.csv
+    SNAPSHOT_STATUS=$?
+else
+    SNAPSHOT_STATUS=0
+fi
+set -e
+if (( RUN_STATUS != 0 )); then exit "$RUN_STATUS"; fi
+if (( SUMMARY_STATUS != 0 )); then exit "$SUMMARY_STATUS"; fi
+exit "$SNAPSHOT_STATUS"

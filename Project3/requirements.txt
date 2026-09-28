@@ -1,0 +1,7 @@
+# Notebook and paired analysis. Solver/summary scripts need no Python packages.
+numpy>=1.24
+pandas>=2.0
+matplotlib>=3.7
+nbformat>=5.9
+nbclient>=0.10
+ipykernel>=6.0
